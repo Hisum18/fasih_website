@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://fasih.nrdyn.com/sitemap.xml
