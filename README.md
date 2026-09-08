@@ -1,4 +1,4 @@
-# fasih-pages
+# fasih_website
 
 Marketing + support site for **Fasih** — a Classical Arabic (Fus-ha) vocabulary
 trainer for iPhone, by Nrdyn LLC. Free, fully offline, no account, nothing
@@ -17,6 +17,18 @@ Live at **https://fasih.nrdyn.com**.
 | `support.html` | `/support.html` | FAQ and troubleshooting |
 | `privacy.html` | `/privacy.html` | Privacy policy |
 
+Netlify also resolves extensionless paths, so `/support` and `/privacy` serve
+the same pages. The `<link rel="canonical">` tags point at the `.html` form.
+
+## Other files in the root
+
+| File | Purpose |
+|---|---|
+| `netlify.toml` | Publish root, security headers, cache policy |
+| `robots.txt` | Allows all crawlers; points at the sitemap |
+| `sitemap.xml` | The three pages, with the `fasih.nrdyn.com` host |
+| `.nojekyll` | Leftover from GitHub Pages — inert on Netlify, safe to delete |
+
 ## Deploying (Netlify)
 
 The site is deployed on Netlify from this repo: no build command, the publish
@@ -32,6 +44,7 @@ managed at Namecheap.
 - `assets/icon-512.png`, `assets/apple-touch-icon.png`, `assets/favicon-64.png` — app icon sizes
 - `assets/og-image.png` — social card
 - `assets/screens/` — the six App Store screenshots
+- `assets/app-store-badge.svg` — Apple's official download badge
 
 ## Notes on the copy
 
