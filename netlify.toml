@@ -1,28 +1,35 @@
-# Static site: no build step, publish the repo root as-is.
+# Deploy config for fasih.nrdyn.com.
+#
+# Plain static site: no framework and no build command. Netlify serves the repo
+# root as-is. Its asset server resolves an extensionless path (/support) to
+# support.html natively, so clean URLs need no post-processing — the same
+# behaviour nrdyn.com relies on.
+
 [build]
   publish = "."
 
-# Security headers for every response. The CSP is tight because the site runs no
-# JavaScript at all: the only external origins are Google Fonts (the Amiri
-# stylesheet, and the font files it pulls from fonts.gstatic.com).
-# 'unsafe-inline' in style-src covers the handful of inline style attributes in
-# index.html — inline attributes cannot be hashed.
+[build.processing]
+  skip_processing = true
+
+# ─── Headers ───
+# The site ships no JavaScript, so script-src is 'none'. The JSON-LD blocks are
+# <script type="application/ld+json">, which browsers never execute, so CSP does
+# not apply to them and search engines still read them.
+
 [[headers]]
   for = "/*"
   [headers.values]
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'none'; form-action 'none'; frame-ancestors 'self'; base-uri 'self'; object-src 'none'"
     X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "geolocation=(), camera=(), microphone=(), payment=()"
-    Content-Security-Policy = "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
 
-# Fingerprint-free assets, but they only change when the app does — cache hard.
+# Screenshots never change in place (a new shot is a new file), so cache them
+# hard. Deliberately NOT applied to assets/site.css: an immutable stylesheet
+# would pin an old design in visitors' caches for a year after an edit.
 [[headers]]
-  for = "/assets/*"
+  for = "/assets/screens/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
-
-# HTML must revalidate so copy edits go live on the next deploy.
-[[headers]]
-  for = "/*.html"
-  [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
