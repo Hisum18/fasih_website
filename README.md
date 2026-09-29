@@ -13,12 +13,15 @@ Live at **https://fasih.nrdyn.com**.
 
 | File | URL | Purpose |
 |---|---|---|
-| `index.html` | `/` | Landing page — features, screenshots, privacy, App Store CTA |
+| `index.html` | `/` | Home — hero, numbers, a highlights teaser, screenshots, privacy, App Store CTA |
+| `features.html` | `/features.html` | Features — the six feature cards and the "how it teaches" method |
+| `dictionary.html` | `/dictionary.html` | The dictionary — a full sample entry and what every entry contains |
 | `support.html` | `/support.html` | FAQ and troubleshooting |
 | `privacy.html` | `/privacy.html` | Privacy policy |
 
-Netlify also resolves extensionless paths, so `/support` and `/privacy` serve
-the same pages. The `<link rel="canonical">` tags point at the `.html` form.
+Netlify also resolves extensionless paths, so `/features`, `/dictionary`,
+`/support` and `/privacy` serve the same pages. The `<link rel="canonical">`
+tags point at the `.html` form.
 
 ## Other files in the root
 
@@ -49,6 +52,6 @@ managed at Namecheap.
 ## Notes on the copy
 
 The entry and sentence counts on the landing page (1,107 entries, 3,321 example
-sentences) describe the shipped lexicon. Update them if the dataset changes.
+sentences) describe the shipped dictionary. Update them if the dataset changes.
 
 © 2026 Nrdyn LLC.
